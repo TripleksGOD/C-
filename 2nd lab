@@ -20,6 +20,7 @@ void ShakerSort(int arr[], int size)
             if (arr[j - 1] > arr[j])
             {    
                 swap(&arr[j], &arr[j - 1]);
+                k = j;
             }
         }
         lb = k + 1;
@@ -28,6 +29,7 @@ void ShakerSort(int arr[], int size)
             if (arr[j - 1] > arr[j]) 
             {
                 swap(&arr[j], &arr[j - 1]);
+                k = j;
             }
         }
         ub = k - 1;
