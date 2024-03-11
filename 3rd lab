@@ -130,19 +130,20 @@ int main()
         std::cout << "Unable to create file." << std::endl;
     }
 
-    char text[500];
+    char string[500];
     std::ifstream File2("poem.txt");
     if (File2.is_open())
     {
-        while (File2.getline(text, sizeof(text)))
+        while (File2.getline(string, sizeof(string)))
         {
             char substring[] = "c";
-            int found_pos = KMPSearch(text, substring);
+            int found_pos = KMPSearch(string, substring);
             if (found_pos != -1)
             {
                 std::cout << "Substring found at index: " << found_pos << std::endl;
             }
-            else {
+            else 
+            {
                 std::cout << "Substring not found" << std::endl;
             }
         }
