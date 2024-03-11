@@ -103,7 +103,7 @@ int main()
         arr[i] = rand() % 501;
     }
 
-    int element = 250;
+    int element = 228;
     int index = find_el(arr, 5000, element);
     if (index != -1)
     {
