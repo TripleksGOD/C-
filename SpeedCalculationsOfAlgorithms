@@ -1,0 +1,133 @@
+#include <iostream>
+#include <chrono>
+
+void swap(int* a, int* b)
+{
+    int temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void SelectionSort(int arr[], int n)
+{
+    for (int i = 0; i < n - 1; ++i)
+    {
+        int minIndex = i;
+        for (int j = i + 1; j < n; ++j)
+        {
+            if (arr[j] < arr[minIndex])
+            {
+                minIndex = j;
+            }
+        }
+        if (minIndex != i) {
+            swap(&arr[i], &arr[minIndex]);
+        }
+    }
+}
+
+void BubbleSort(int arr[], int n)
+{
+    for (int i = 0; i < n - 1; ++i)
+    {
+        for (int j = 0; j < n - i - 1; ++j)
+        {
+            if (arr[j] > arr[j + 1])
+            {
+                swap(&arr[j], &arr[j + 1]);
+            }
+        }
+    }
+}
+
+void InsertionSort(int arr[], int n)
+{
+    for (int i = 1; i < n; ++i)
+    {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key)
+        {
+            arr[j + 1] = arr[j];
+            --j;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+void ShakerSort(int arr[], int size)
+{
+    int j, k;
+    int lb = 1, ub = size - 1;
+    int x;
+    do {
+        k = 0;
+        for (j = ub; j > 0; j--)
+        {
+            if (arr[j - 1] > arr[j])
+            {
+                swap(&arr[j], &arr[j - 1]);
+                k = j;
+            }
+        }
+        lb = k + 1;
+        for (j = 1; j <= ub; j++)
+        {
+            if (arr[j - 1] > arr[j])
+            {
+                swap(&arr[j], &arr[j - 1]);
+                k = j;
+            }
+        }
+        ub = k - 1;
+    } while (lb < ub);
+}
+
+double measureSortingTime(void (*sortFunc)(int[], int), int arr[], int size)
+{
+    auto start = std::chrono::high_resolution_clock::now();
+    sortFunc(arr, size);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+    return elapsed.count() * 1000; // Перетворення в мілісекунди
+}
+
+int main()
+{
+    const int N = 8;
+    const int sizes[] = { 110 * N, 1100 * N, 10000 * N }; // Розміри масивів
+    const int num_sizes = sizeof(sizes) / sizeof(sizes[0]);
+
+    srand(time(nullptr));
+
+    for (int i = 0; i < num_sizes; ++i)
+    {
+        int size = sizes[i];
+        int* arr = new int[size];
+
+        std::cout << "\n\nArray size: " << size << std::endl;
+
+        for (int j = 0; j < size; ++j)
+        {
+            arr[j] = rand() % (20 * N) + 1;
+        }
+
+        std::cout << "Unsorted array: " << std::endl;
+        for (int j = 0; j < size; ++j)
+        {
+            std::cout << arr[j] << " ";
+        }
+
+        std::cout << "\n\Duration" << std::endl;
+
+        std::cout << "Selection Sort: " << measureSortingTime(SelectionSort, arr, size) << " ms" << std::endl;
+        std::cout << "Bubble Sort: " << measureSortingTime(BubbleSort, arr, size) << " ms" << std::endl;
+        std::cout << "Shaker Sort: " << measureSortingTime(ShakerSort, arr, size) << " ms" << std::endl;
+        std::cout << "Insertion Sort: " << measureSortingTime(InsertionSort, arr, size) << " ms" << std::endl;
+
+        delete[] arr;
+    }
+
+    return 0;
+}
