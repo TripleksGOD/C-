@@ -84,13 +84,13 @@ void ShakerSort(int arr[], int size)
     } while (lb < ub);
 }
 
-double measureSortingTime(void (*sortFunc)(int[], int), int arr[], int size)
+double Time(void (*SortFunction)(int[], int), int arr[], int size)
 {
     auto start = std::chrono::high_resolution_clock::now();
-    sortFunc(arr, size);
+    SortFunction(arr, size);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
-    return elapsed.count() * 1000; // Перетворення в мілісекунди
+    return elapsed.count() * 1000; 
 }
 
 int main()
@@ -119,12 +119,12 @@ int main()
             std::cout << arr[j] << " ";
         }
 
-        std::cout << "\n\Duration" << std::endl;
+        std::cout << "\n\nDuration" << std::endl;
 
-        std::cout << "Selection Sort: " << measureSortingTime(SelectionSort, arr, size) << " ms" << std::endl;
-        std::cout << "Bubble Sort: " << measureSortingTime(BubbleSort, arr, size) << " ms" << std::endl;
-        std::cout << "Shaker Sort: " << measureSortingTime(ShakerSort, arr, size) << " ms" << std::endl;
-        std::cout << "Insertion Sort: " << measureSortingTime(InsertionSort, arr, size) << " ms" << std::endl;
+        std::cout << "Selection Sort: " << Time(SelectionSort, arr, size) << " ms" << std::endl;
+        std::cout << "Bubble Sort: " << Time(BubbleSort, arr, size) << " ms" << std::endl;
+        std::cout << "Shaker Sort: " << Time(ShakerSort, arr, size) << " ms" << std::endl;
+        std::cout << "Insertion Sort: " << Time(InsertionSort, arr, size) << " ms" << std::endl;
 
         delete[] arr;
     }
