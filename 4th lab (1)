@@ -1,0 +1,65 @@
+#include <iostream>
+#include <string>
+
+struct TABLE
+{
+    std::string NAZV, DATE, TIME;
+    int NUMR;
+};
+
+void TrainDataFillInformation(TABLE a[], int N)
+{
+    int i = 0;
+
+    std::cout << "\nEnter info for train number: " << i + 1 << std::endl;
+    for (i = 0; i < N; ++i)
+    {
+        std::cout << "Enter destination: ";
+        std::cin >> a[i].NAZV;
+        std::cout << "Enter date: ";
+        std::cin >> a[i].DATE;
+        std::cout << "Enter time: ";
+        std::cin >> a[i].TIME;
+        std::cout << "Enter number of train: ";
+        std::cin >> a[i].NUMR;
+    }
+}
+
+void InformationOutput(TABLE a[], std::string b, int N)
+{
+    int c = 0;
+    std::cout << "\nTrains to: " << b << std::endl;
+    for (int i = 0; i < N; ++i)
+    {
+        if (a[i].NAZV == b)
+        {
+            std::cout << "Train number: " << a[i].NUMR << ", Date: " << a[i].DATE << ", Time: " << a[i].TIME << ", Number: " << a[i].NUMR;
+            c++;
+        }
+    }
+    if (c == 0)
+    {
+        std::cout << "There's no trains" << std::endl;
+    }
+}
+
+int main()
+{
+    int N;
+    std::cout << "Enter number of trains: ";
+    std::cin >> N;
+
+    TABLE* a = new TABLE[N];
+
+    TrainDataFillInformation(a, N);
+
+    std::string b;
+    std::cout << "\nEnter destination: ";
+    std::cin >> b;
+
+    InformationOutput(a, b, N);
+
+    return 0;
+}
+
+
