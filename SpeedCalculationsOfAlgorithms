@@ -96,7 +96,7 @@ double Time(void (*SortFunction)(int[], int), int arr[], int size)
 int main()
 {
     const int N = 8;
-    const int sizes[] = { 110 * N, 1100 * N, 10000 * N }; // Розміри масивів
+    const int sizes[] = { 110 * N, 1100 * N, 10000 * N }; 
     const int num_sizes = sizeof(sizes) / sizeof(sizes[0]);
 
     srand(time(nullptr));
