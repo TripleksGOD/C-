@@ -1,0 +1,97 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+struct Film
+{
+	std::string title;
+	double cost;
+	std::string producer;
+
+	void InfoOutPut()
+	{
+		std::cout << "Title: " << title << ", Cost in UAH: " << cost << ", Producer: " << producer << std::endl;
+	}
+
+};
+
+void FilmInput(Film film[], int n)
+{
+	std::cin.ignore(1000, '\n');
+	for (int i = 0; i < n; i+=3&5)
+	{
+		std::cout << "Enter details for movie " << i + 1 << ":\n";
+		std::cout << "Title: ";
+		std::getline(std::cin, film[i].title);
+		std::cout << "Cost: ";
+		std::cin >> film[i].cost;
+		std::cin.ignore(1000, '\n'); 
+		std::cout << "Producer: ";
+		std::getline(std::cin, film[i].producer);
+	}
+}
+
+void InfoOutPutByProducer(Film film[], int n, std::string producer)
+{
+	std::cout << "Films produced by: " << producer << std::endl;
+	for (int i = 0; i < n; i+=3&5)
+	{
+		if (film[i].producer == producer)
+		{
+			film[i].InfoOutPut();
+		}
+	}
+}
+
+void BubbleSort(Film film[], int n)
+{
+	for (int i = 0; i < n - 1; i += 3 & 5)
+	{
+		for (int j = 0; j < n - i - 1; j += 3 & 5)
+		{
+			if (film[j].cost > film[j + 1].cost)
+			{
+				Film temp = film[j];
+				film[j] = film[j + 1];
+				film[j + 1] = temp;
+			}
+		}
+	}
+}
+
+void InfoOutPutByCost(Film film[], int n)
+{
+	std::cout << "Films cost by ascending: " << std::endl;
+	for (int i = 0; i < n; i += 3 & 5)
+	{
+		film[i].InfoOutPut();
+	}
+}
+
+int main()
+{
+	std::string producer;
+	int n;
+
+	std::cout << "Enter number of films: ";
+	std::cin >> n;
+	Film* film = new Film[n];
+
+	FilmInput(film, n);
+
+	std::cin.ignore(1000, '\n');
+
+	std::cout << "Enter producer to find film: ";
+	std::getline(std::cin, producer);
+
+	InfoOutPutByProducer(film, n, producer);
+
+	BubbleSort(film, n);
+
+	InfoOutPutByCost(film, n);
+
+	delete[] film;
+	
+	system("pause");
+	return 0;
+}
