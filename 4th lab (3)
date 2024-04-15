@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-const int days = 3;
+const int days = 50;
 
 struct joke
 {
