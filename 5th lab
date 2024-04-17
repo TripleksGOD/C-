@@ -1,0 +1,115 @@
+#include <iostream>
+#include <string>
+#include <list>
+
+struct TABLE
+{
+    std::string NAZV, DATE, TIME;
+    int NUMR;
+};
+
+void InformationInput(std::list<TABLE> &a)
+{
+    int N;
+    std::cout << "Enter number of trains: " << std::endl;
+    std::cin >> N;
+
+    for (int i = 0; i < N; i++)
+    {
+        TABLE train;
+        std::cout << "Enter info for train number: " << i + 1 << std::endl;
+        std::cout << "Enter destination: ";
+        std::cin >> train.NAZV;
+        std::cout << "Enter date: ";
+        std::cin >> train.DATE;
+        std::cout << "Enter time: ";
+        std::cin >> train.TIME;
+        std::cout << "Enter number of train: ";
+        std::cin >> train.NUMR;
+        a.push_back(train);
+    }
+}
+
+void InformationOutput(std::list<TABLE> &a, std::string &b)
+{
+    int c = 0;
+    std::cout << "\nTrains to: " << b << std::endl;
+    for (auto &n : a)
+    {
+        if (n.NAZV == b)
+        {
+            std::cout << "Train number: " << n.NUMR << ", Date: " << n.DATE << ", Time: " << n.TIME << ", Number: " << n.NUMR << std::endl;
+            c++;
+        }
+    }
+    if (c == 0)
+    {
+        std::cout << "There are no trains" << std::endl;
+    }
+}
+
+void AllInformationOutput(std::list<TABLE> &a)
+{
+    std::cout << "\nAll trains information:" << std::endl;
+    for (auto& n : a)
+    {
+        std::cout << "Destination: " << n.NAZV << ", Date: " << n.DATE << ", Time: " << n.TIME << ", Train number: " << n.NUMR << std::endl;
+    }
+}
+
+void Add(std::list<TABLE> &a)
+{
+    TABLE newTrain;
+    std::cout << "\nEnter info for the new train:\n";
+    std::cout << "Enter destination: ";
+    std::cin >> newTrain.NAZV;
+    std::cout << "Enter date: ";
+    std::cin >> newTrain.DATE;
+    std::cout << "Enter time: ";
+    std::cin >> newTrain.TIME;
+    std::cout << "Enter number of train: ";
+    std::cin >> newTrain.NUMR;
+    a.push_back(newTrain);
+}
+
+void Delete(std::list<TABLE> &a, int n)
+{
+    auto c = a.begin();
+    while (c != a.end())
+    {
+        if (c->NUMR == n)
+        {
+            c = a.erase(c);
+        }
+        else
+        {
+            ++c;
+        }
+    }
+}
+
+int main()
+{
+    int NumDelete;
+    std::string Destination;
+
+    std::list<TABLE> Trains;
+
+    InformationInput(Trains);
+
+    AllInformationOutput(Trains);
+
+    Add(Trains);
+
+    std::cout << "\nEnter train destination to see information about it: ";
+    std::cin >> Destination;
+    InformationOutput(Trains, Destination);
+
+    std::cout << "\nEnter train number to delete information about it: ";
+    std::cin >> NumDelete;
+    Delete(Trains, NumDelete);
+
+    AllInformationOutput(Trains);
+
+    return 0;
+}
